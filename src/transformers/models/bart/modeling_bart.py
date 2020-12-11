@@ -446,21 +446,21 @@ class DecoderLayer(nn.Module):
             x = self.self_attn_layer_norm(x)
 
         # Cross-Attention Block
-        residual = x
-        assert self.encoder_attn.cache_key != self.self_attn.cache_key
-        if self.normalize_before:
-            x = self.encoder_attn_layer_norm(x)
-        x, cross_attn_weights = self.encoder_attn(
-            query=x,
-            key=encoder_hidden_states,
-            key_padding_mask=encoder_attn_mask,
-            layer_state=layer_state,  # mutates layer state
-            output_attentions=output_attentions,
-        )
-        x = F.dropout(x, p=self.dropout, training=self.training)
-        x = residual + x
-        if not self.normalize_before:
-            x = self.encoder_attn_layer_norm(x)
+        # residual = x
+        # assert self.encoder_attn.cache_key != self.self_attn.cache_key
+        # if self.normalize_before:
+        #     x = self.encoder_attn_layer_norm(x)
+        # x, cross_attn_weights = self.encoder_attn(
+        #     query=x,
+        #     key=encoder_hidden_states,
+        #     key_padding_mask=encoder_attn_mask,
+        #     layer_state=layer_state,  # mutates layer state
+        #     output_attentions=output_attentions,
+        # )
+        # x = F.dropout(x, p=self.dropout, training=self.training)
+        # x = residual + x
+        # if not self.normalize_before:
+        #     x = self.encoder_attn_layer_norm(x)
 
         # Fully Connected
         residual = x
